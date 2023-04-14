@@ -6,7 +6,7 @@ import {
   RefreshControl,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Stack, useRouter, useSearchParams } from "expo-router";
 import useFetch from "../../hook/useFetch";
 import { COLORS, SIZES, icons } from "../../constants";
@@ -21,13 +21,17 @@ import About from "../../components/jobdetails/about/About";
 const JobDetails = () => {
   const params = useSearchParams();
   const router = useRouter();
-  const { data, isLoading, error } = useFetch("job-details", {
+  const { data, isLoading, error, refetch } = useFetch("job-details", {
     job_id: params.id,
   });
   const tabs = ["About", "Qualifications", "Responsibilities"];
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [refreshing, setRefreshing] = useState(false);
-  const onRefresh = () => {};
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+  }, []);
   const displayTabContent = () => {
     switch (activeTab) {
       case "Qualifications":
@@ -39,12 +43,13 @@ const JobDetails = () => {
         );
       case "About":
         return <About info={data[0].job_description} />;
-      case "Responsibilities":   return (
-        <Specifics
-          title="Responsibilities"
-          points={data[0].job_highlights.Responsibilities ?? ["N/A"]}
-        />
-      );
+      case "Responsibilities":
+        return (
+          <Specifics
+            title="Responsibilities"
+            points={data[0].job_highlights.Responsibilities ?? ["N/A"]}
+          />
+        );
 
       default:
         break;
