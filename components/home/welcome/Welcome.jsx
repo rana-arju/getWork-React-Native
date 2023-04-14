@@ -5,11 +5,10 @@ import styles from "./welcome.style";
 import { SIZES, icons } from "../../../constants";
 import { useRouter } from "expo-router";
 import { TextInput } from "react-native-gesture-handler";
-const Welcome = () => {
+const Welcome = ({ searchTerm, handleClick, setSearchTerm }) => {
   const router = useRouter();
-  const [search, setSearch] = useState();
   const [activeJobType, setActiveJobType] = useState("Full-time");
-  const jobTypes = ["Full-time", "Part-time", "Contract"];
+  const jobTypes = ["Fulltime", "Parttime", "Contractor"];
   return (
     <View>
       <View style={styles.container}>
@@ -20,12 +19,12 @@ const Welcome = () => {
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            value={search}
-            onChange={() => {}}
+            value={searchTerm}
+            onChangeText={(text) => setSearchTerm(text)}
             placeholder="What are you looking?"
           />
         </View>
-        <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
+        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
           <Image
             source={icons.search}
             resizeMode="contain"
