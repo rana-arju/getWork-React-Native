@@ -29,7 +29,7 @@ const Home = () => {
           headerRight: () => (
             <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
           ),
-         
+
           headerTitle: "Rana",
         }}
       />
@@ -37,7 +37,7 @@ const Home = () => {
         <View style={{ flex: 1, padding: SIZES.medium }}>
           <Welcome />
           <Popularjobs />
-          <NearbyJobCard />
+          <Nearbyjobs />
         </View>
       </ScrollView>
     </SafeAreaView>
