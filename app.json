@@ -5,6 +5,7 @@
       "bundler": "metro"
     },
     "name": "getWork",
-    "slug": "getWork"
+    "slug": "getWork",
+    "version": "1.0.0"
   }
 }
